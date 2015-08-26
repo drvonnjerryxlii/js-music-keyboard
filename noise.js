@@ -1,44 +1,49 @@
 $(document).ready( function() {
-  // declare the notes that exist in this cruel world
-  var notes = ["a", "b", "c", "d", "e", "f", "g"];
+  // do we need to worry about which file plays?
+  // ie: mp3, fx: mp3 ogg, c: mp3 ogg, op: ogg, sfr: ogg, mpg
 
-  // 1. attach a click event handler to the note buttons
-  $("")
-  $(".note.a").click( function() {
-    play("a");
+  $(".note").click( function(event) {
+    play(event.target.id);
   });
 
-  $(".note.b").click( function() {
-    play("b");
-  });
+  var NOTE_LETTERS = ["a", "s", "d", "f", "g", "h", "j"];
+  $("html").keypress(function(event) {
+    var letter = String.fromCharCode(event.which);
+      console.log("I'm being run!");
+    if (NOTE_LETTERS.indexOf(letter) > -1) {
+      var note = translateKey(letter);
+      play(note); // play the note
 
-  $(".note.c").click( function() {
-    play("c");
-  });
-
-  $(".note.d").click( function() {
-    play("d");
-  });
-
-  $(".note.e").click( function() {
-    play("e");
-  });
-
-  $(".note.f").click( function() {
-    play("f");
-  });
-
-  $(".note.g").click( function() {
-    play("g");
+      // add a style for 0.1 seconds
+      $("#" + note).addClass("active");
+      setTimeout(function() {
+        $(".note").removeClass("active");
+      }, 350);
+    }
   });
 
   function play(note) {
     var audio_tag = document.getElementById(note + "Audio"); // eg, "aAudio"
-    // ie: mp3, fx: mp3 ogg, c: mp3 ogg, op: ogg, sfr: ogg, mpg
     audio_tag.currentTime = 0;
     audio_tag.play();
   }
 
-  // 2. then figure out which note to play
-  // 3. then make the audio file play
+  function translateKey(letter) {
+    switch (letter) {
+      case "a":
+        return "c";
+      case "s":
+        return "d";
+      case "d":
+        return "e";
+      case "f":
+        return "f";
+      case "g":
+        return "g";
+      case "h":
+        return "a";
+      case "j":
+        return "b";
+    }
+  }
 });
