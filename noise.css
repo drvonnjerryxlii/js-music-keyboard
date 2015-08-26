@@ -12,6 +12,13 @@ body {
   margin: 5rem auto;
 }
 
+.instructions {
+  font-size: 1.5rem;
+  color: #fff;
+  text-align: center;
+  font-family: "Droid Sans", "Verdana", sans-serif;
+}
+
 .note {
   cursor: pointer;
   font-size: 3rem;
